@@ -1,1 +1,101 @@
-# travis-ai
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travis</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: #080b10;
+      color: white;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .app {
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .status {
+      color: #8d96a5;
+      margin-bottom: 40px;
+    }
+
+    .chat {
+      background: #11161e;
+      border-radius: 20px;
+      padding: 20px;
+      min-height: 100px;
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .input-box {
+      display: flex;
+      gap: 10px;
+    }
+
+    input {
+      flex: 1;
+      padding: 16px;
+      border-radius: 14px;
+      border: none;
+      background: #1b222d;
+      color: white;
+      font-size: 16px;
+      outline: none;
+    }
+
+    button {
+      padding: 16px 20px;
+      border: none;
+      border-radius: 14px;
+      background: white;
+      color: black;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app">
+    <h1>TRAVIS</h1>
+    <div class="status">Dein persönlicher Assistent</div>
+
+    <div class="chat" id="chat">
+      Hey 👋 Ich bin Travis.
+    </div>
+
+    <div class="input-box">
+      <input id="message" type="text" placeholder="Sag Travis etwas...">
+      <button onclick="sendMessage()">Senden</button>
+    </div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById("message");
+      const chat = document.getElementById("chat");
+
+      if (input.value.trim() === "") return;
+
+      chat.innerHTML = "Du: " + input.value;
+      input.value = "";
+    }
+  </script>
+
+</body>
+</html>
