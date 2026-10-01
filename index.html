@@ -67,6 +67,14 @@
       font-weight: bold;
     }
 
+    .mic {
+      width: 100%;
+      margin-top: 10px;
+      background: #1b222d;
+      color: white;
+      font-size: 18px;
+    }
+
     .memory {
       margin-top: 20px;
       background: #11161e;
@@ -101,6 +109,10 @@
 
     <button onclick="sendMessage()">Senden</button>
   </div>
+
+  <button class="mic" onclick="startListening()">
+    🎙️ Mit Travis sprechen
+  </button>
 
   <div class="memory">
     <div class="memory-title">🧠 Travis' Gedächtnis</div>
@@ -138,8 +150,7 @@
 
     if (message === "") return;
 
-    chat.innerHTML =
-      "<b>Du:</b> " + message;
+    chat.innerHTML = "<b>Du:</b> " + message;
 
     memories.push(message);
 
@@ -151,6 +162,46 @@
     input.value = "";
 
     showMemories();
+  }
+
+  function startListening() {
+
+    const SpeechRecognition =
+      window.SpeechRecognition ||
+      window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      alert("Dein Browser unterstützt diese Spracheingabe leider nicht.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+
+    recognition.lang = "de-DE";
+    recognition.interimResults = false;
+    recognition.continuous = false;
+
+    recognition.start();
+
+    document.getElementById("chat").innerHTML =
+      "🎙️ Ich höre zu...";
+
+    recognition.onresult = function(event) {
+
+      const text =
+        event.results[0][0].transcript;
+
+      document.getElementById("message").value = text;
+
+      sendMessage();
+    };
+
+    recognition.onerror = function() {
+
+      document.getElementById("chat").innerHTML =
+        "Ich konnte dich leider nicht verstehen.";
+
+    };
   }
 
   showMemories();
